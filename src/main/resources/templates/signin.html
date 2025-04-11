@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="text-align: center; margin-top: 40px;">Register/ Login</h1>
+    <section style="display: flex; justify-content: center; margin-top: 25px;">
+        <form action="signup" method="post">
+            <div class="input">
+                <label for="">Name</label>
+                <input type="text" name="name" required>
+
+            </div>
+            <div class="input">
+                <input type="email" name="email" required>
+                <label for="">Email</label>
+            </div>
+            <div class="input">
+                <input type="password" name="password" required>
+                <label for="">Password</label>
+            </div>
+            <div class="inputbox">
+                <ion-icon name="lock-closed-outline"></ion-icon>
+                <input type="password" id="passwordcon" name="passwordcon" required>
+                <label for="passwordcon">Confirm Password</label>
+            </div>
+            <button id= "submit" type="submit">Sign up</button>
+            <div class="register">
+                <p>Already have an account ? <a href="#">Log in</a></p>
+            </div>
+        </form>
+    </section>
+</body>
+<script>
+    const submitButttom = document.getElementById("submit");
+    submitButttom.addEventListener('click',()=>{
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('passwordcon').value;
+        const email = document.getElementById('email').value;
+        const data ={
+            username,
+            email,
+            password
+        }
+
+        if(password == confirmPassword){
+            const jsonData = JSON.stringify(data);
+            fetch('/req/signup', {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: jsonData
+            })
+                .then(response =>{
+                    //alert('succesfull');
+                    //if(response.status == 200){
+                    //alert('succesfull');
+                    //xs}
+                })
+        }
+
+    })
+
+
+</script>
+</html>
