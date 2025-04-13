@@ -1,31 +1,34 @@
 package org.spring_security.loginregister.controller;
 
 import org.spring_security.loginregister.model.AppUsers;
-import org.spring_security.loginregister.service.AppUserService;
+import org.spring_security.loginregister.service.AppUserRegisterService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 public class RegistrationController {
-    private final AppUserService appUserService;
+    private final AppUserRegisterService service;
 
-    public RegistrationController(AppUserService appUserService) {
-        this.appUserService = appUserService;
+    public RegistrationController(AppUserRegisterService service) {
+        this.service = service;
     }
 
     @PostMapping("/register")
     @ResponseStatus(code = HttpStatus.CREATED)
     public AppUsers registerUser(@RequestBody AppUsers user){
-        return appUserService.registerUser(user);
+        return service.registerUser(user);
     }
 
-    @PostMapping("/login")
-    public String login(@RequestBody AppUsers user){
-        return appUserService.login(user);
+    @GetMapping("/greeting")
+    public String greeting(AppUsers user){
+        return "Hello World "+user.getUsername();
+    }
+
+//    read all users
+    @GetMapping("/users")
+    public List<AppUsers> getAllUsers(){
+        return service.getAllUsers();
     }
 }
